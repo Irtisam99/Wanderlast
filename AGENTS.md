@@ -32,4 +32,5 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
   - `params`/`searchParams` are Promises — `await` them in pages/layouts/generateMetadata.
   - React Compiler handles memoization — don't add `useMemo`/`useCallback`/`React.memo`.
 - **Typed route props**: pages/layouts use generated `PageProps<"/route">` / `LayoutProps<"/">` types (synced by `next dev` into `.next/types`), not hand-written param types. `next-env.d.ts` and `.next` type imports are generated — never edit.
-- Multi-page routes don't exist yet: everything lives in `src/app/` (currently just `layout.tsx`, `page.tsx`, `globals.css`).
+- Multi-page routes exist now: pages live flat in `src/app/<route>/page.tsx` (e.g. `add-destination/`).
+- **Navbar/Footer are global (`src/app/layout.tsx`); the navbar is an absolute overlay** — `<main>` has `pt-[90px]` so normal page content clears it. Full-bleed hero sections must self-compensate with `-mt-[90px]` (see `src/components/layout/banner.tsx`).

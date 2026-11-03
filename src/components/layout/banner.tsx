@@ -10,7 +10,7 @@ const searchFields = [
 
 export default function Banner() {
   return (
-    <section className="font-display relative flex min-h-screen flex-col overflow-hidden">
+    <section className="font-display relative -mt-[90px] flex min-h-screen flex-col overflow-hidden">
       <Image
         src="/images/Banner.png"
         alt=""
