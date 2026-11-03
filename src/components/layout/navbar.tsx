@@ -4,9 +4,9 @@ import { UserRound } from "lucide-react";
 
 const navLinks = [
   { label: "Home", href: "/", active: true },
-  { label: "Destinations", href: "#destinations" },
+  { label: "Destinations", href: "/destination" },
+  {label:"Add Destination", href:'/add-destination'},
   { label: "My Bookings", href: "#bookings" },
-  { label: "Admin", href: "#admin" },
 ];
 
 export default function Navbar() {
