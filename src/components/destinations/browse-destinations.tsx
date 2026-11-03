@@ -154,7 +154,7 @@ export default function BrowseDestinations({
         </p>
       ) : (
         <div className="mt-5 grid gap-x-8 gap-y-10 pb-4 sm:grid-cols-2 md:grid-cols-3">
-          {shown.map((item) => (
+          { shown.map((item) => (
             <article key={item.id ?? item.name}>
               <div className="relative aspect-[4/3] overflow-hidden bg-[#eef4f6]">
                 <img
@@ -196,16 +196,18 @@ export default function BrowseDestinations({
                 <CalendarDays className="size-4 shrink-0" strokeWidth={1.8} />
                 {item.duration}
               </div>
-
+              
               <Link
-                href="#"
+                href={`/destination/${item.id}`}
                 className="mt-3 inline-flex items-center gap-1 text-[12.5px] font-medium uppercase text-[#3ea3c3] underline underline-offset-4 transition-colors hover:text-[#3593b4]"
               >
                 Book Now
                 <ArrowUpRight className="size-3.5" strokeWidth={2} />
               </Link>
             </article>
-          ))}
+          ))
+          
+          }
         </div>
       )}
     </>
