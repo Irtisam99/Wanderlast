@@ -1,3 +1,4 @@
+import DeleteDestinationDialogue from "@/components/destinations/DeleteDestinationDialogue";
 import EditDestinationDialog from "@/components/destinations/EditDestinationDialog";
 import { Button } from "@/components/ui/button";
 import {
@@ -80,13 +81,7 @@ export default async function DestinationDetailsPage({
         <div className="flex items-center gap-3">
 
         <EditDestinationDialog id={id} datas={data} />
-          <Button
-            variant="outline"
-            className="h-11 cursor-pointer gap-2 rounded-md border-[#e56572] bg-white px-5 text-[15px] text-[#e56572] hover:bg-[#e56572]/10 hover:text-[#e56572]"
-          >
-            <Trash2 className="size-4" />
-            Cancel
-          </Button>
+        <DeleteDestinationDialogue id={id}></DeleteDestinationDialogue>
         </div>
       </div>
 
