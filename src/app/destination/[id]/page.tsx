@@ -1,3 +1,4 @@
+import EditDestinationDialog from "@/components/destinations/EditDestinationDialog";
 import { Button } from "@/components/ui/button";
 import {
   ArrowLeft,
@@ -5,7 +6,6 @@ import {
   CalendarDays,
   Check,
   MapPin,
-  PenLine,
   Star,
   Trash2,
 } from "lucide-react";
@@ -78,13 +78,8 @@ export default async function DestinationDetailsPage({
           Back to Destinations
         </Link>
         <div className="flex items-center gap-3">
-          <Button
-            variant="outline"
-            className="h-11 cursor-pointer gap-2 rounded-md border-[#dcdcdc] bg-white px-5 text-[15px] text-[#1d2b32] hover:bg-[#f6f8f9] hover:text-[#1d2b32]"
-          >
-            <PenLine className="size-4" />
-            Edit
-          </Button>
+
+        <EditDestinationDialog id={id} datas={data} />
           <Button
             variant="outline"
             className="h-11 cursor-pointer gap-2 rounded-md border-[#e56572] bg-white px-5 text-[15px] text-[#e56572] hover:bg-[#e56572]/10 hover:text-[#e56572]"
