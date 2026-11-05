@@ -1,15 +1,35 @@
+'use client';
 import Image from "next/image";
 import Link from "next/link";
 import { UserRound } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { Button } from "../ui/button";
 
 const navLinks = [
   { label: "Home", href: "/", active: true },
   { label: "Destinations", href: "/destination" },
-  {label:"Add Destination", href:'/add-destination'},
+  { label: "Add Destination", href: '/add-destination' },
   { label: "My Bookings", href: "#bookings" },
 ];
 
 export default function Navbar() {
+  const { data: session } = authClient.useSession()
+
+  const user = session?.user
+
+  const handleSignOut = () => {
+    authClient.signOut()
+  }
+
   return (
     <header className="font-display absolute left-2 right-2 top-2 z-10">
       <nav className="relative flex h-[66px] items-center justify-between bg-white pl-9 pr-10">
@@ -19,9 +39,8 @@ export default function Navbar() {
             <li key={link.label}>
               <Link
                 href={link.href}
-                className={`text-[17px] transition-colors hover:text-[#3f9fc0] ${
-                  link.active ? "text-[#3f9fc0]" : "text-[#1c1c1c]"
-                }`}
+                className={`text-[17px] transition-colors hover:text-[#3f9fc0] ${link.active ? "text-[#3f9fc0]" : "text-[#1c1c1c]"
+                  }`}
               >
                 {link.label}
               </Link>
@@ -63,18 +82,48 @@ export default function Navbar() {
             <UserRound className="size-[18px]" strokeWidth={1.8} />
             Profile
           </Link>
-          <Link
-            href="#login"
-            className="transition-colors hover:text-[#3f9fc0]"
-          >
-            Login
-          </Link>
-          <Link
-            href="#signup"
-            className="transition-colors hover:text-[#3f9fc0]"
-          >
-            Sign Up
-          </Link>
+
+
+          {
+            user ?
+              <Popover>
+                <PopoverTrigger render={
+                  <Avatar>
+                    <AvatarImage referrerPolicy="no-referrer" src={user?.image as string} />
+                    <AvatarFallback>{user?.name.charAt(0)}</AvatarFallback>
+                  </Avatar>}>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <PopoverHeader>
+                    <PopoverTitle>{user?.name}</PopoverTitle>
+                    <PopoverDescription>
+                      <p>{user?.email}</p>
+                      <Button variant={'destructive'} className={'mt-3'} onClick={handleSignOut}>SignOut</Button>
+                    </PopoverDescription>
+                  </PopoverHeader>
+                </PopoverContent>
+              </Popover> : <>
+
+                <Link
+                  href="/login"
+                  className="transition-colors hover:text-[#3f9fc0]"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/signup"
+                  className="transition-colors hover:text-[#3f9fc0]"
+                >
+                  Sign Up
+                </Link>
+
+              </>
+          }
+
+
+
+
+
         </div>
       </nav>
     </header>
