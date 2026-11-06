@@ -13,6 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { Button } from "../ui/button";
+import { redirect } from "next/navigation";
 
 const navLinks = [
   { label: "Home", href: "/", active: true },
@@ -28,6 +29,7 @@ export default function Navbar() {
 
   const handleSignOut = () => {
     authClient.signOut()
+    redirect('/')
   }
 
   return (
