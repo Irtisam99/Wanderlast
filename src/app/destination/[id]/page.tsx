@@ -1,3 +1,4 @@
+import BookingCard from "@/components/booking/BookingCard";
 import DeleteDestinationDialogue from "@/components/destinations/DeleteDestinationDialogue";
 import EditDestinationDialog from "@/components/destinations/EditDestinationDialog";
 import { Button } from "@/components/ui/button";
@@ -24,11 +25,7 @@ const HIGHLIGHT_BULLETS = [
   "Visit Uluwatu Temple at sunset",
   "Private beach dinner experience",
 ];
-const BOOKING_BENEFITS = [
-  "Free cancellation up to 7 days",
-  "Travel insurance included",
-  "24/7 customer support",
-];
+
 
 type Destination = {
   name: string;
@@ -59,13 +56,7 @@ export default async function DestinationDetailsPage({
   }
   if (!data) notFound();
 
-  const departure = data.departureDate
-    ? new Date(data.departureDate).toLocaleDateString("en-US", {
-        month: "2-digit",
-        day: "2-digit",
-        year: "numeric",
-      })
-    : "";
+
 
   return (
     <div className="font-display mx-auto w-[90%] max-w-[1440px] pb-24">
@@ -157,38 +148,7 @@ export default async function DestinationDetailsPage({
         </div>
 
         {/* Booking card */}
-        <aside className="h-fit rounded-md border border-[#e8e8e8] bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.08)]">
-          <p className="text-[16px] text-[#4f6069]">Starting from</p>
-          <p className="mt-1 text-[36px] font-semibold text-[#3ea3c3]">
-            ${Number(data.price || 0).toLocaleString("en-US")}
-          </p>
-          <p className="text-[15px] text-[#4f6069]">per person</p>
-
-          <div className="mt-7 flex h-11 items-center rounded-md border border-[#e3e9ed] bg-[#f4f7f9] px-4 text-[15px] text-[#1d2b32]">
-            {departure}
-          </div>
-
-          <Button className="mt-5 h-12 w-full cursor-pointer gap-2 rounded-md bg-[#4aa3bd] text-[16px] text-white hover:bg-[#3f95b0]">
-            Book Now
-            <ArrowRight className="size-[18px]" strokeWidth={2} />
-          </Button>
-
-          <ul className="mt-6 space-y-3">
-            {BOOKING_BENEFITS.map((benefit) => (
-              <li
-                key={benefit}
-                className="flex items-center gap-2 text-[15px] text-[#3d4b52]"
-              >
-                <Check
-                  className="size-4 shrink-0 text-[#3ea3c3]"
-                  strokeWidth={2.5}
-                  aria-hidden
-                />
-                {benefit}
-              </li>
-            ))}
-          </ul>
-        </aside>
+            <BookingCard data={data}></BookingCard>
       </div>
     </div>
   );
