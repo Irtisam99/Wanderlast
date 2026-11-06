@@ -9,15 +9,24 @@ const BOOKING_BENEFITS = [
     "Travel insurance included",
     "24/7 customer support",
 ];
-const BookingCard = ({ data }) => {
+type BookingData = {
+    name: string;
+    price: string;
+    departureDate: string;
+    [key: string]: unknown;
+};
+
+const BookingCard = ({ data }: { data: BookingData }) => {
 
     const { data: session } = authClient.useSession();
     const user = session?.user
 
-    const handleBooking=async(e)=>{
+    const handleBooking = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const departureDate=e.target.departureDate.value
+        const departureDate = new FormData(e.currentTarget).get(
+            "departureDate",
+        ) as string;
         const mainData={
             username:user?.name,
             email:user?.email,
