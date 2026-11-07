@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import BookingCard from "@/components/booking/BookingCard";
 import DeleteDestinationDialogue from "@/components/destinations/DeleteDestinationDialogue";
 import EditDestinationDialog from "@/components/destinations/EditDestinationDialog";

@@ -23,7 +23,7 @@ const DeleteDestinationDialogue = (
     const handleDeleteDestination = async () => {
         const token = await getTokenFromClient()
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}destination/${id}`,
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/destination/${id}`,
             {
                 method: "DELETE",
                 headers: {
