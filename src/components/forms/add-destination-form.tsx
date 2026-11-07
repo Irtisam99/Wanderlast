@@ -15,6 +15,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { authClient } from "@/lib/auth-client";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 import { Save, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -55,16 +57,19 @@ export default function AddDestinationForm() {
   const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // TODO: wire up to a real endpoint/service when available.
-    
-    const res=await fetch("http://localhost:8000/add-destination",{
+
+    const token=await getTokenFromClient()
+
+    const res=await fetch(`${process.env.NEXT_PUBLIC_API_URL}/add-destination`,{
       method:'POST',
       headers:{
         "Content-Type":"application/json",
+        authorization:`Bearer ${token}`
       },
       body:JSON.stringify(form)
     })
-    const data=await res.json()
-    console.log(data)
+    const resultdata=await res.json()
+    console.log(resultdata)
   };
 
   return (

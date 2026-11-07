@@ -23,6 +23,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Save, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { getTokenFromClient } from "@/lib/getTokenFromClient";
 
 const categories = [
     "Beach",
@@ -105,11 +106,14 @@ const EditDestinationDialog = ({
                 imageUrl: form.imageUrl,
                 description: form.description,
             };
+
+            const token=await getTokenFromClient()
             // TODO: wire up to a real endpoint/service when available.
-            const res = await fetch(`http://localhost:8000/destination/${id}`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/destination/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
+                    authorization:`Bearer ${token}`
                 },
                 body: JSON.stringify(updateData),
             });

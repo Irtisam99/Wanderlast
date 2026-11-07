@@ -1,5 +1,6 @@
 import MyBookingCard from "@/components/booking/MyBookingCard";
 import { auth } from "@/lib/auth";
+import { getTokenFromServer } from "@/lib/getTokenFromServer";
 import { headers } from "next/headers";
 
 type Booking = {
@@ -19,10 +20,16 @@ const MyBookingsPage = async () => {
     const user = session?.user;
 
     let bookings: Booking[] = [];
+    const token = await getTokenFromServer()
     try {
         const res = await fetch(
-            `http://localhost:8000/my-bookings/${user?.email}`,
-            { cache: "no-store" },
+            `${process.env.NEXT_PUBLIC_API_URL}/my-bookings/${user?.email}`,
+            {
+                cache: "no-store",
+                headers: {
+                    authorization: `Bearer ${token}`
+                }
+            },
         );
         bookings = (await res.json()) as Booking[];
     } catch {

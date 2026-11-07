@@ -2,6 +2,8 @@ import BookingCard from "@/components/booking/BookingCard";
 import DeleteDestinationDialogue from "@/components/destinations/DeleteDestinationDialogue";
 import EditDestinationDialog from "@/components/destinations/EditDestinationDialog";
 import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/auth";
+import { getTokenFromServer } from "@/lib/getTokenFromServer";
 import {
   ArrowLeft,
   ArrowRight,
@@ -11,6 +13,7 @@ import {
   Star,
   Trash2,
 } from "lucide-react";
+import { headers } from "next/headers";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -45,9 +48,16 @@ export default async function DestinationDetailsPage({
 }) {
   const { id } = await params;
   let data: Destination | null = null;
+
+  const token=await getTokenFromServer()
+ 
+
   try {
-    const res = await fetch(`http://localhost:8000/destination/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/destination/${id}`, {
       cache: "no-store",
+      headers:{
+        authorization:`Bearer ${token}`
+      }
     });
     if (!res.ok) notFound();
     data = (await res.json()) as Destination;

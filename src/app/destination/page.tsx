@@ -7,7 +7,7 @@ type ApiResponse = Destination & { _id?: string | { $oid?: string } };
 export default async function AllDestinationsPage() {
   let destinations: Destination[] = [];
   try {
-    const res = await fetch("http://localhost:8000/destination", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/destination`, {
       cache: "no-store",
     });
     const data = (await res.json()) as ApiResponse[] | { destinations?: ApiResponse[] } | unknown;
